@@ -7,7 +7,14 @@ const fs = require("fs");
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: true, // o "*" para pruebas
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+  transports: ["websocket"], // 👈 clave: sin polling
+});
 
 // ====== ROOM STATE (conteo) ======
 const rooms = new Map(); // room -> { hostId: string|null, listeners: Set<string> }
