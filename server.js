@@ -145,7 +145,8 @@ io.on("connection", (socket) => {
 
 
 // ====== START ======
-server.listen(3000, "0.0.0.0", () => {
-  console.log("✅ WebRTC Radio en http://0.0.0.0:3000");
-  console.log("📱 En móvil usa: http://IP_DE_TU_PC:3000");
+const PORT = process.env.PORT || 3000;
+
+server.listen(PORT, "0.0.0.0", () => {
+  console.log(`✅ WebRTC Radio en http://0.0.0.0:${PORT}`);
 });
