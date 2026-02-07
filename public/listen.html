@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <title>Listener</title>
+    <style>
+      :root{
+        --bg:#0b0b0f;
+        --card:#11111a;
+        --stroke:#232338;
+        --muted:rgba(255,255,255,.72);
+        --muted2:rgba(255,255,255,.55);
+        --accent:#ff2b5d;
+        --accent2:#f4b70c;
+      }
+      *{box-sizing:border-box}
+      html,body{height:100%}
+      body{
+        margin:0;
+        background: radial-gradient(1200px 600px at 50% -20%, rgba(255,43,93,.25), transparent 60%),
+                    radial-gradient(900px 500px at 110% 20%, rgba(244,183,12,.16), transparent 60%),
+                    var(--bg);
+        color:#fff;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+        padding: env(safe-area-inset-top) 14px env(safe-area-inset-bottom);
+      }
+
+      .wrap{
+        height:100%;
+        max-width: 520px;
+        margin: 0 auto;
+        display:flex;
+        flex-direction:column;
+        gap:12px;
+      }
+
+      .card{
+        background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+        border: 1px solid var(--stroke);
+        border-radius: 18px;
+        padding: 14px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 18px 60px rgba(0,0,0,.55);
+      }
+
+      .top{
+        display:flex;
+        gap:12px;
+        align-items:center;
+      }
+      .cover{
+        width: 78px;
+        height: 78px;
+        border-radius: 16px;
+        object-fit: cover;
+        box-shadow: 0 16px 50px rgba(0,0,0,.55);
+        border: 1px solid rgba(255,255,255,.08);
+      }
+      .title{
+        line-height:1.1;
+        flex:1;
+      }
+      .title h2{
+        margin:0;
+        font-size: 18px;
+      }
+      .meta{
+        margin-top:6px;
+        font-size: 13px;
+        color: var(--muted);
+        display:flex;
+        gap:10px;
+        flex-wrap:wrap;
+      }
+      .pill{
+        display:inline-flex;
+        align-items:center;
+        gap:6px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(0,0,0,.18);
+      }
+      .dot{
+        width:8px;height:8px;border-radius:99px;
+        background: rgba(255,255,255,.35);
+      }
+      .dot.live{ background: #35ff8a; box-shadow: 0 0 0 6px rgba(53,255,138,.12); }
+
+      .actions{
+        margin-top:12px;
+        display:flex;
+        gap:10px;
+      }
+      .btn{
+        flex:1;
+        padding: 12px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(255,255,255,.06);
+        color:#fff;
+        font-size: 15px;
+        font-weight: 800;
+        cursor:pointer;
+      }
+      .btn.primary{
+        background: linear-gradient(180deg, rgba(255,43,93,.95), rgba(255,43,93,.75));
+        border: none;
+      }
+      .btn:active{ transform: translateY(1px); }
+
+      .status{
+        margin-top:10px;
+        font-size: 13px;
+        color: var(--muted2);
+      }
+
+      /* CHAT */
+      .chat{
+        flex:1;
+        display:flex;
+        flex-direction:column;
+        min-height: 220px;
+      }
+      .chatHead{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:10px;
+        margin-bottom:10px;
+      }
+      .chatHead .h{
+        font-weight: 900;
+        font-size: 14px;
+        letter-spacing:.2px;
+      }
+      .chatHead small{
+        color: var(--muted2);
+      }
+
+      .messages{
+        flex:1;
+        overflow:auto;
+        padding: 10px;
+        border-radius: 14px;
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(0,0,0,.22);
+      }
+
+      .msg{
+        padding: 10px 10px;
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,.08);
+        background: rgba(255,255,255,.04);
+        margin-bottom: 10px;
+      }
+      .msg .u{
+        font-size: 12px;
+        font-weight: 900;
+        color: rgba(255,255,255,.86);
+        margin-bottom: 4px;
+      }
+      .msg .t{
+        font-size: 14px;
+        color: rgba(255,255,255,.86);
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+
+      .composer{
+        margin-top:10px;
+        display:flex;
+        gap:10px;
+        align-items:center;
+      }
+      .input{
+        flex:1;
+        padding: 12px 12px;
+        border-radius: 14px;
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(0,0,0,.22);
+        color:#fff;
+        font-size: 15px;
+        outline:none;
+      }
+      .send{
+        width: 52px;
+        height: 44px;
+        border-radius: 14px;
+        border: none;
+        background: linear-gradient(180deg, rgba(244,183,12,.95), rgba(244,183,12,.75));
+        font-weight: 900;
+        cursor:pointer;
+      }
+
+      audio{ display:none; }
+
+      @media (min-width: 480px){
+        .title h2{ font-size: 20px; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <div class="card">
+        <div class="top">
+          <img class="cover" src="/cover.jpg" alt="FlameCast" />
+          <div class="title">
+            <h2>🔥 LiveUp</h2>
+            <div class="meta">
+              <span class="pill">Room: <b id="roomName"></b></span>
+              <span class="pill"><span id="liveDot" class="dot"></span> <span id="liveText">Conectando…</span></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn primary" onclick="resumeAudio()" id="playBtn">
+            ▶ Escuchar canal
+          </button>
+          <button class="btn" onclick="toggleMute()" id="muteBtn" style="display:none;">
+            🔇 Silenciar
+          </button>
+        </div>
+
+        <div class="status" id="status">Conectando…</div>
+        <audio id="audio" autoplay playsinline></audio>
+      </div>
+
+      <div class="card chat">
+        <div class="chatHead">
+          <div class="h">💬 Chat en vivo</div>
+          <small id="chatHint">Sé respetuoso 😉</small>
+        </div>
+
+        <div class="messages" id="messages"></div>
+
+        <div class="composer">
+          <input
+            class="input"
+            id="msgInput"
+            type="text"
+            placeholder="Escribe algo…"
+            maxlength="300"
+            autocomplete="off"
+          />
+          <button class="send" id="sendBtn" title="Enviar">➤</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const params = new URLSearchParams(location.search);
+      const room = params.get("room") || "canal1";
+      document.getElementById("roomName").textContent = room;
+
+      const socket = io();
+      const audioEl = document.getElementById("audio");
+
+      const liveDot = document.getElementById("liveDot");
+      const liveText = document.getElementById("liveText");
+      const statusEl = document.getElementById("status");
+
+      const playBtn = document.getElementById("playBtn");
+      const muteBtn = document.getElementById("muteBtn");
+
+      const messagesEl = document.getElementById("messages");
+      const msgInput = document.getElementById("msgInput");
+      const sendBtn = document.getElementById("sendBtn");
+
+      const pcConfig = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] };
+
+      let pc = null;
+
+      function setStatus(msg) { statusEl.textContent = msg; }
+      function setLive(isLive, text) {
+        liveDot.classList.toggle("live", !!isLive);
+        liveText.textContent = text || (isLive ? "En vivo" : "Offline");
+      }
+
+      function resumeAudio() {
+        audioEl.muted = false;
+        audioEl.play().catch(() => {});
+        playBtn.style.display = "none";
+        muteBtn.style.display = "inline-block";
+      }
+
+      function toggleMute() {
+        audioEl.muted = !audioEl.muted;
+        muteBtn.textContent = audioEl.muted ? "🔈 Activar" : "🔇 Silenciar";
+      }
+
+      socket.emit("join", { room, role: "listener" });
+
+      socket.on("webrtc-offer", async ({ from, sdp }) => {
+        setStatus("Recibiendo señal…");
+        setLive(false, "Conectando…");
+
+        pc = new RTCPeerConnection(pcConfig);
+
+        pc.ontrack = (event) => {
+          setStatus("🔊 En vivo");
+          setLive(true, "En vivo");
+          audioEl.srcObject = event.streams[0];
+          audioEl.play().catch(() => {});
+        };
+
+        pc.onicecandidate = (e) => {
+          if (e.candidate) {
+            socket.emit("webrtc-ice", { to: from, candidate: e.candidate, room });
+          }
+        };
+
+        await pc.setRemoteDescription(new RTCSessionDescription(sdp));
+        const answer = await pc.createAnswer();
+        await pc.setLocalDescription(answer);
+
+        socket.emit("webrtc-answer", { to: from, sdp: pc.localDescription, room });
+      });
+
+      socket.on("webrtc-ice", async ({ candidate }) => {
+        if (!pc) return;
+        try { await pc.addIceCandidate(candidate); } catch {}
+      });
+
+      socket.on("peer-left", () => {
+        setStatus("El host se desconectó.");
+        setLive(false, "Offline");
+        if (pc) pc.close();
+        pc = null;
+        audioEl.srcObject = null;
+        playBtn.style.display = "inline-block";
+        muteBtn.style.display = "none";
+      });
+
+      // ====== CHAT UI ======
+      function addMessage({ user = "Usuario", text = "" }) {
+        const wrap = document.createElement("div");
+        wrap.className = "msg";
+
+        const u = document.createElement("div");
+        u.className = "u";
+        u.textContent = user;
+
+        const t = document.createElement("div");
+        t.className = "t";
+        t.textContent = text;
+
+        wrap.appendChild(u);
+        wrap.appendChild(t);
+        messagesEl.appendChild(wrap);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      }
+
+      function hideKeyboard() {
+        // quita foco para esconder teclado (móvil)
+        if (document.activeElement && typeof document.activeElement.blur === "function") {
+          document.activeElement.blur();
+        }
+        msgInput.blur();
+        // iOS a veces necesita un tick
+        setTimeout(() => msgInput.blur(), 0);
+      }
+
+      function sendMessage() {
+        const text = (msgInput.value || "").trim();
+        if (!text) return;
+
+        socket.emit("chat-message", { room, text });
+
+        msgInput.value = "";
+
+        // 👇 esto es lo que pediste: esconder teclado al enviar
+        hideKeyboard();
+      }
+
+      sendBtn.addEventListener("click", sendMessage);
+      msgInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          sendMessage();
+        }
+      });
+
+      socket.on("chat-message", ({ user, text }) => {
+        addMessage({ user: user || "Usuario", text: text || "" });
+      });
+
+      addMessage({ user: "Sistema", text: "Conectado al chat. Escribe algo 👇" });
+    </script>
+  </body>
+</html>

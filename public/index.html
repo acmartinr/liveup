@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>FlameCast</title>
+    <style>
+      html, body { height: 100%; margin: 0; }
+      body {
+        display: grid;
+        place-items: center;
+        background: #0b0b0f;
+      }
+      .center {
+        display: grid;
+        place-items: center;
+        gap: 12px;
+        text-align: center;
+        cursor: pointer;
+        user-select: none;
+      }
+      .logo {
+        width: min(320px, 70vw);
+        height: auto;
+        border-radius: 18px;
+        box-shadow: 0 10px 40px rgba(0,0,0,.5);
+      }
+      .hint {
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        font-size: 14px;
+        opacity: .75;
+        color: #fff;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="center" id="tapArea" aria-label="Reproducir">
+      <!-- Cambia el src por tu imagen (por ejemplo /logo.png) -->
+      <img class="logo" src="/cover.jpg" alt="FlameCast" />
+      <div class="hint">Toca/clica para iniciar si tu navegador lo bloquea</div>
+    </div>
+
+    <!-- Audio oculto, sin controles -->
+    <audio id="player" autoplay loop preload="auto" playsinline>
+      <source src="/stream" type="audio/mpeg" />
+    </audio>
+
+    <script>
+      const player = document.getElementById("player");
+      const tapArea = document.getElementById("tapArea");
+
+      async function tryPlay() {
+        try {
+          await player.play();
+          // Si ya está sonando, ocultamos el texto de ayuda
+          const hint = tapArea.querySelector(".hint");
+          if (hint) hint.style.display = "none";
+        } catch (e) {
+          // Autoplay bloqueado: se quedará el hint hasta que el usuario toque.
+        }
+      }
+
+      // Intenta al cargar
+      tryPlay();
+
+      // Si autoplay está bloqueado, al tocar/clicar arranca
+      ["click", "touchstart"].forEach(evt => {
+        tapArea.addEventListener(evt, () => {
+          tryPlay();
+        }, { passive: true });
+      });
+    </script>
+  </body>
+</html>
