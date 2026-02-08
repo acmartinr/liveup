@@ -2,206 +2,252 @@
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
     <title>Host</title>
     <style>
-      :root{
-        --bg:#0b0b0f;
-        --card:#11111a;
-        --stroke:#232338;
-        --muted:rgba(255,255,255,.72);
-        --muted2:rgba(255,255,255,.55);
-        --accent:#ff2b5d;
-        --accent2:#f4b70c;
+      :root {
+        --bg: #0b0b0f;
+        --card: #11111a;
+        --stroke: #232338;
+        --muted: rgba(255, 255, 255, 0.72);
+        --muted2: rgba(255, 255, 255, 0.55);
+        --accent: #ff2b5d;
+        --accent2: #f4b70c;
       }
-      *{box-sizing:border-box}
-      html,body{height:100%}
-      body{
-        margin:0;
-        background: radial-gradient(1200px 600px at 50% -20%, rgba(255,43,93,.25), transparent 60%),
-                    radial-gradient(900px 500px at 110% 20%, rgba(244,183,12,.16), transparent 60%),
-                    var(--bg);
-        color:#fff;
-        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        background:
+          radial-gradient(
+            1200px 600px at 50% -20%,
+            rgba(255, 43, 93, 0.25),
+            transparent 60%
+          ),
+          radial-gradient(
+            900px 500px at 110% 20%,
+            rgba(244, 183, 12, 0.16),
+            transparent 60%
+          ),
+          var(--bg);
+        color: #fff;
+        font-family:
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Arial;
         padding: env(safe-area-inset-top) 14px env(safe-area-inset-bottom);
       }
-      .wrap{
-        height:100%;
+      .wrap {
+        height: 100%;
         max-width: 980px;
         margin: 0 auto;
-        display:flex;
-        flex-direction:column;
-        gap:12px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
       }
 
-      .grid{
-        flex:1;
-        display:grid;
+      .grid {
+        flex: 1;
+        display: grid;
         grid-template-columns: 1fr;
-        gap:12px;
+        gap: 12px;
         min-height: 0;
       }
-      @media (min-width: 900px){
-        .grid{
-          grid-template-columns: 1.2fr .8fr;
+      @media (min-width: 900px) {
+        .grid {
+          grid-template-columns: 1.2fr 0.8fr;
         }
       }
 
-      .card{
-        background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      .card {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.06),
+          rgba(255, 255, 255, 0.03)
+        );
         border: 1px solid var(--stroke);
         border-radius: 18px;
         padding: 14px;
         backdrop-filter: blur(10px);
-        box-shadow: 0 18px 60px rgba(0,0,0,.55);
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
         min-height: 0;
       }
 
-      .top{
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:10px;
+      .top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
         margin-bottom: 10px;
       }
-      .title{
-        display:flex;
-        flex-direction:column;
-        gap:6px;
+      .title {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
       }
-      .title h2{
-        margin:0;
+      .title h2 {
+        margin: 0;
         font-size: 18px;
       }
-      .meta{
-        display:flex;
-        gap:10px;
-        flex-wrap:wrap;
+      .meta {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
         font-size: 13px;
         color: var(--muted);
       }
-      .pill{
-        display:inline-flex;
-        align-items:center;
-        gap:6px;
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         padding: 6px 10px;
         border-radius: 999px;
-        border: 1px solid rgba(255,255,255,.10);
-        background: rgba(0,0,0,.18);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.18);
       }
 
-      button{
+      button {
         padding: 12px 14px;
         border-radius: 999px;
         border: 0;
         background: var(--accent);
-        color:#fff;
+        color: #fff;
         font-weight: 900;
-        cursor:pointer;
+        cursor: pointer;
       }
-      button:disabled{ opacity:.5; cursor:not-allowed; }
+      button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
 
-      .row{
-        display:flex;
-        gap:10px;
-        flex-wrap:wrap;
+      .row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
         margin-top: 10px;
       }
-      .btn{
-        background: rgba(255,255,255,.06);
-        border: 1px solid rgba(255,255,255,.10);
+      .btn {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
       }
-      .btn.primary{
-        background: linear-gradient(180deg, rgba(255,43,93,.95), rgba(255,43,93,.75));
+      .btn.primary {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 43, 93, 0.95),
+          rgba(255, 43, 93, 0.75)
+        );
         border: none;
       }
-      .btn.warn{
-        background: rgba(255,255,255,.06);
-        border: 1px solid rgba(255,255,255,.10);
+      .btn.warn {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
       }
 
-      .slider{ margin-top: 12px; text-align:left; }
-      .slider small{ color: var(--muted2); }
-      .slider input{ width:100%; }
+      .slider {
+        margin-top: 12px;
+        text-align: left;
+      }
+      .slider small {
+        color: var(--muted2);
+      }
+      .slider input {
+        width: 100%;
+      }
 
-      .status{
+      .status {
         margin-top: 10px;
         font-size: 13px;
         color: var(--muted2);
       }
 
       /* CHAT */
-      .chat{
-        display:flex;
-        flex-direction:column;
+      .chat {
+        display: flex;
+        flex-direction: column;
         min-height: 0;
       }
-      .chatHead{
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:10px;
-        margin-bottom:10px;
-      }
-      .chatHead .h{
-        font-weight: 900;
-        font-size: 14px;
-      }
-      .messages{
-        flex:1;
-        overflow:auto;
-        padding: 10px;
-        border-radius: 14px;
-        border: 1px solid rgba(255,255,255,.10);
-        background: rgba(0,0,0,.22);
-        min-height: 220px;
-      }
-      .msg{
-        padding: 10px;
-        border-radius: 12px;
-        border: 1px solid rgba(255,255,255,.08);
-        background: rgba(255,255,255,.04);
+      .chatHead {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
         margin-bottom: 10px;
       }
-      .msg .u{
+      .chatHead .h {
+        font-weight: 900;
+        font-size: 14px;
+      }
+      .messages {
+        flex: 1;
+        overflow: auto;
+        padding: 10px;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.22);
+        min-height: 220px;
+      }
+      .msg {
+        padding: 10px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.04);
+        margin-bottom: 10px;
+      }
+      .msg .u {
         font-size: 12px;
         font-weight: 900;
-        opacity: .9;
+        opacity: 0.9;
         margin-bottom: 4px;
       }
-      .msg .t{
+      .msg .t {
         font-size: 14px;
-        opacity: .9;
+        opacity: 0.9;
         white-space: pre-wrap;
         word-break: break-word;
       }
-      .composer{
+      .composer {
         margin-top: 10px;
-        display:flex;
-        gap:10px;
-        align-items:center;
+        display: flex;
+        gap: 10px;
+        align-items: center;
       }
-      .input{
-        flex:1;
+      .input {
+        flex: 1;
         padding: 12px 12px;
         border-radius: 14px;
-        border: 1px solid rgba(255,255,255,.10);
-        background: rgba(0,0,0,.22);
-        color:#fff;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.22);
+        color: #fff;
         font-size: 15px;
-        outline:none;
+        outline: none;
       }
-      .send{
+      .send {
         width: 52px;
         height: 44px;
         border-radius: 14px;
         border: none;
-        background: linear-gradient(180deg, rgba(244,183,12,.95), rgba(244,183,12,.75));
+        background: linear-gradient(
+          180deg,
+          rgba(244, 183, 12, 0.95),
+          rgba(244, 183, 12, 0.75)
+        );
         font-weight: 900;
-        cursor:pointer;
+        cursor: pointer;
       }
 
-      audio{ display:none; }
+      audio {
+        display: none;
+      }
     </style>
   </head>
 
@@ -215,15 +261,24 @@
               <h2>🎙️ Host (micro + música)</h2>
               <div class="meta">
                 <span class="pill">Room: <b id="roomName"></b></span>
-                <span class="pill">Conectados: <b id="connectedCount">0</b></span>
+                <span class="pill"
+                  >Conectados: <b id="connectedCount">0</b></span
+                >
               </div>
             </div>
           </div>
 
           <div class="row">
-            <button class="btn primary" id="startBtn">Empezar a transmitir</button>
+            <button class="btn primary" id="startBtn">
+              Empezar a transmitir
+            </button>
 
-            <input id="fileInput" type="file" accept="audio/mpeg,audio/mp3,.mp3" style="display:none" />
+            <input
+              id="fileInput"
+              type="file"
+              accept="audio/mpeg,audio/mp3,.mp3"
+              style="display: none"
+            />
             <button class="btn" id="pickBtn" disabled>📁 Elegir MP3</button>
             <button class="btn" id="uploadBtn" disabled>⬆ Subir</button>
 
@@ -233,7 +288,15 @@
 
           <div class="slider">
             <small>Volumen música</small>
-            <input id="musicVol" type="range" min="0" max="1" step="0.01" value="0.7" disabled />
+            <input
+              id="musicVol"
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0.7"
+              disabled
+            />
           </div>
 
           <div class="status" id="status">Listo.</div>
@@ -245,13 +308,19 @@
         <div class="card chat">
           <div class="chatHead">
             <div class="h">💬 Chat en vivo</div>
-            <small style="color: var(--muted2);">Lo ven todos en la sala</small>
+            <small style="color: var(--muted2)">Lo ven todos en la sala</small>
           </div>
 
           <div class="messages" id="messages"></div>
 
           <div class="composer">
-            <input class="input" id="msgInput" type="text" maxlength="300" placeholder="Escribe algo como host…" />
+            <input
+              class="input"
+              id="msgInput"
+              type="text"
+              maxlength="300"
+              placeholder="Escribe algo como host…"
+            />
             <button class="send" id="sendBtn" title="Enviar">➤</button>
           </div>
         </div>
@@ -263,8 +332,11 @@
       const params = new URLSearchParams(location.search);
       const room = params.get("room") || "canal1";
       document.getElementById("roomName").textContent = room;
+      const socket = io({
+        transports: ["websocket"],
+        upgrade: false,
+      });
 
-      const socket = io();
       const peers = new Map();
 
       const startBtn = document.getElementById("startBtn");
@@ -284,7 +356,9 @@
       const msgInput = document.getElementById("msgInput");
       const sendBtn = document.getElementById("sendBtn");
 
-      const pcConfig = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] };
+      const pcConfig = {
+        iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
+      };
 
       let mixedStream = null;
       let audioCtx = null;
@@ -345,7 +419,10 @@
 
       // ====== AUDIO MIX ======
       async function initAudioMix() {
-        const micStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+        const micStream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+          video: false,
+        });
 
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         if (audioCtx.state === "suspended") {
@@ -396,14 +473,22 @@
 
           pc.onicecandidate = (e) => {
             if (e.candidate) {
-              socket.emit("webrtc-ice", { to: id, candidate: e.candidate, room });
+              socket.emit("webrtc-ice", {
+                to: id,
+                candidate: e.candidate,
+                room,
+              });
             }
           };
 
           const offer = await pc.createOffer();
           await pc.setLocalDescription(offer);
 
-          socket.emit("webrtc-offer", { to: id, sdp: pc.localDescription, room });
+          socket.emit("webrtc-offer", {
+            to: id,
+            sdp: pc.localDescription,
+            room,
+          });
           setStatus(`Oyente conectado: ${id}`);
         });
 
@@ -416,7 +501,9 @@
         socket.on("webrtc-ice", async ({ from, candidate }) => {
           const pc = peers.get(from);
           if (!pc) return;
-          try { await pc.addIceCandidate(candidate); } catch {}
+          try {
+            await pc.addIceCandidate(candidate);
+          } catch {}
         });
 
         socket.on("peer-left", ({ id }) => {
@@ -430,7 +517,10 @@
         });
 
         // mensajito al iniciar
-        addMessage({ user: "Sistema", text: "Chat listo. Lo que escribas lo ven los oyentes." });
+        addMessage({
+          user: "Sistema",
+          text: "Chat listo. Lo que escribas lo ven los oyentes.",
+        });
       }
 
       startBtn.addEventListener("click", () => {
@@ -455,7 +545,10 @@
       });
 
       uploadBtn.addEventListener("click", async () => {
-        if (!selectedFile) { setStatus("Primero elige un MP3."); return; }
+        if (!selectedFile) {
+          setStatus("Primero elige un MP3.");
+          return;
+        }
 
         try {
           setStatus("Subiendo MP3 al servidor...");
@@ -464,7 +557,10 @@
           const form = new FormData();
           form.append("file", selectedFile);
 
-          const res = await fetch("/api/upload-mp3", { method: "POST", body: form });
+          const res = await fetch("/api/upload-mp3", {
+            method: "POST",
+            body: form,
+          });
           if (!res.ok) throw new Error((await res.text()) || "Upload failed");
 
           const data = await res.json();
@@ -484,8 +580,12 @@
 
       songBtn.addEventListener("click", async () => {
         try {
-          if (!songEl.src) { setStatus("Primero sube un MP3."); return; }
-          if (audioCtx && audioCtx.state === "suspended") await audioCtx.resume().catch(() => {});
+          if (!songEl.src) {
+            setStatus("Primero sube un MP3.");
+            return;
+          }
+          if (audioCtx && audioCtx.state === "suspended")
+            await audioCtx.resume().catch(() => {});
           await songEl.play();
           setStatus("🎵 Canción sonando (también la oyen los oyentes)");
         } catch (e) {

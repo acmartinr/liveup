@@ -150,6 +150,8 @@ io.on("connection", (socket) => {
   });
 });
 
+app.set("trust proxy", 1);
+app.get("/health", (req, res) => res.status(200).send("ok"));
 
 // ====== START ======
 const PORT = process.env.PORT || 3000;

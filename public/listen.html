@@ -1,203 +1,248 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
     <title>Listener</title>
     <style>
-      :root{
-        --bg:#0b0b0f;
-        --card:#11111a;
-        --stroke:#232338;
-        --muted:rgba(255,255,255,.72);
-        --muted2:rgba(255,255,255,.55);
-        --accent:#ff2b5d;
-        --accent2:#f4b70c;
+      :root {
+        --bg: #0b0b0f;
+        --card: #11111a;
+        --stroke: #232338;
+        --muted: rgba(255, 255, 255, 0.72);
+        --muted2: rgba(255, 255, 255, 0.55);
+        --accent: #ff2b5d;
+        --accent2: #f4b70c;
       }
-      *{box-sizing:border-box}
-      html,body{height:100%}
-      body{
-        margin:0;
-        background: radial-gradient(1200px 600px at 50% -20%, rgba(255,43,93,.25), transparent 60%),
-                    radial-gradient(900px 500px at 110% 20%, rgba(244,183,12,.16), transparent 60%),
-                    var(--bg);
-        color:#fff;
-        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        background:
+          radial-gradient(
+            1200px 600px at 50% -20%,
+            rgba(255, 43, 93, 0.25),
+            transparent 60%
+          ),
+          radial-gradient(
+            900px 500px at 110% 20%,
+            rgba(244, 183, 12, 0.16),
+            transparent 60%
+          ),
+          var(--bg);
+        color: #fff;
+        font-family:
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Arial;
         padding: env(safe-area-inset-top) 14px env(safe-area-inset-bottom);
       }
 
-      .wrap{
-        height:100%;
+      .wrap {
+        height: 100%;
         max-width: 520px;
         margin: 0 auto;
-        display:flex;
-        flex-direction:column;
-        gap:12px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
       }
 
-      .card{
-        background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      .card {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.06),
+          rgba(255, 255, 255, 0.03)
+        );
         border: 1px solid var(--stroke);
         border-radius: 18px;
         padding: 14px;
         backdrop-filter: blur(10px);
-        box-shadow: 0 18px 60px rgba(0,0,0,.55);
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
       }
 
-      .top{
-        display:flex;
-        gap:12px;
-        align-items:center;
+      .top {
+        display: flex;
+        gap: 12px;
+        align-items: center;
       }
-      .cover{
+      .cover {
         width: 78px;
         height: 78px;
         border-radius: 16px;
         object-fit: cover;
-        box-shadow: 0 16px 50px rgba(0,0,0,.55);
-        border: 1px solid rgba(255,255,255,.08);
+        box-shadow: 0 16px 50px rgba(0, 0, 0, 0.55);
+        border: 1px solid rgba(255, 255, 255, 0.08);
       }
-      .title{
-        line-height:1.1;
-        flex:1;
+      .title {
+        line-height: 1.1;
+        flex: 1;
       }
-      .title h2{
-        margin:0;
+      .title h2 {
+        margin: 0;
         font-size: 18px;
       }
-      .meta{
-        margin-top:6px;
+      .meta {
+        margin-top: 6px;
         font-size: 13px;
         color: var(--muted);
-        display:flex;
-        gap:10px;
-        flex-wrap:wrap;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
       }
-      .pill{
-        display:inline-flex;
-        align-items:center;
-        gap:6px;
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         padding: 6px 10px;
         border-radius: 999px;
-        border: 1px solid rgba(255,255,255,.10);
-        background: rgba(0,0,0,.18);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.18);
       }
-      .dot{
-        width:8px;height:8px;border-radius:99px;
-        background: rgba(255,255,255,.35);
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 99px;
+        background: rgba(255, 255, 255, 0.35);
       }
-      .dot.live{ background: #35ff8a; box-shadow: 0 0 0 6px rgba(53,255,138,.12); }
+      .dot.live {
+        background: #35ff8a;
+        box-shadow: 0 0 0 6px rgba(53, 255, 138, 0.12);
+      }
 
-      .actions{
-        margin-top:12px;
-        display:flex;
-        gap:10px;
+      .actions {
+        margin-top: 12px;
+        display: flex;
+        gap: 10px;
       }
-      .btn{
-        flex:1;
+      .btn {
+        flex: 1;
         padding: 12px 14px;
         border-radius: 999px;
-        border: 1px solid rgba(255,255,255,.10);
-        background: rgba(255,255,255,.06);
-        color:#fff;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.06);
+        color: #fff;
         font-size: 15px;
         font-weight: 800;
-        cursor:pointer;
+        cursor: pointer;
       }
-      .btn.primary{
-        background: linear-gradient(180deg, rgba(255,43,93,.95), rgba(255,43,93,.75));
+      .btn.primary {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 43, 93, 0.95),
+          rgba(255, 43, 93, 0.75)
+        );
         border: none;
       }
-      .btn:active{ transform: translateY(1px); }
+      .btn:active {
+        transform: translateY(1px);
+      }
 
-      .status{
-        margin-top:10px;
+      .status {
+        margin-top: 10px;
         font-size: 13px;
         color: var(--muted2);
       }
 
       /* CHAT */
-      .chat{
-        flex:1;
-        display:flex;
-        flex-direction:column;
+      .chat {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
         min-height: 220px;
       }
-      .chatHead{
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:10px;
-        margin-bottom:10px;
+      .chatHead {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 10px;
       }
-      .chatHead .h{
+      .chatHead .h {
         font-weight: 900;
         font-size: 14px;
-        letter-spacing:.2px;
+        letter-spacing: 0.2px;
       }
-      .chatHead small{
+      .chatHead small {
         color: var(--muted2);
       }
 
-      .messages{
-        flex:1;
-        overflow:auto;
+      .messages {
+        flex: 1;
+        overflow: auto;
         padding: 10px;
         border-radius: 14px;
-        border: 1px solid rgba(255,255,255,.10);
-        background: rgba(0,0,0,.22);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.22);
       }
 
-      .msg{
+      .msg {
         padding: 10px 10px;
         border-radius: 12px;
-        border: 1px solid rgba(255,255,255,.08);
-        background: rgba(255,255,255,.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.04);
         margin-bottom: 10px;
       }
-      .msg .u{
+      .msg .u {
         font-size: 12px;
         font-weight: 900;
-        color: rgba(255,255,255,.86);
+        color: rgba(255, 255, 255, 0.86);
         margin-bottom: 4px;
       }
-      .msg .t{
+      .msg .t {
         font-size: 14px;
-        color: rgba(255,255,255,.86);
+        color: rgba(255, 255, 255, 0.86);
         white-space: pre-wrap;
         word-break: break-word;
       }
 
-      .composer{
-        margin-top:10px;
-        display:flex;
-        gap:10px;
-        align-items:center;
+      .composer {
+        margin-top: 10px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
       }
-      .input{
-        flex:1;
+      .input {
+        flex: 1;
         padding: 12px 12px;
         border-radius: 14px;
-        border: 1px solid rgba(255,255,255,.10);
-        background: rgba(0,0,0,.22);
-        color:#fff;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.22);
+        color: #fff;
         font-size: 15px;
-        outline:none;
+        outline: none;
       }
-      .send{
+      .send {
         width: 52px;
         height: 44px;
         border-radius: 14px;
         border: none;
-        background: linear-gradient(180deg, rgba(244,183,12,.95), rgba(244,183,12,.75));
+        background: linear-gradient(
+          180deg,
+          rgba(244, 183, 12, 0.95),
+          rgba(244, 183, 12, 0.75)
+        );
         font-weight: 900;
-        cursor:pointer;
+        cursor: pointer;
       }
 
-      audio{ display:none; }
+      audio {
+        display: none;
+      }
 
-      @media (min-width: 480px){
-        .title h2{ font-size: 20px; }
+      @media (min-width: 480px) {
+        .title h2 {
+          font-size: 20px;
+        }
       }
     </style>
   </head>
@@ -211,7 +256,10 @@
             <h2>🔥 LiveUp</h2>
             <div class="meta">
               <span class="pill">Room: <b id="roomName"></b></span>
-              <span class="pill"><span id="liveDot" class="dot"></span> <span id="liveText">Conectando…</span></span>
+              <span class="pill"
+                ><span id="liveDot" class="dot"></span>
+                <span id="liveText">Conectando…</span></span
+              >
             </div>
           </div>
         </div>
@@ -220,7 +268,12 @@
           <button class="btn primary" onclick="resumeAudio()" id="playBtn">
             ▶ Escuchar canal
           </button>
-          <button class="btn" onclick="toggleMute()" id="muteBtn" style="display:none;">
+          <button
+            class="btn"
+            onclick="toggleMute()"
+            id="muteBtn"
+            style="display: none"
+          >
             🔇 Silenciar
           </button>
         </div>
@@ -257,7 +310,10 @@
       const room = params.get("room") || "canal1";
       document.getElementById("roomName").textContent = room;
 
-      const socket = io();
+      const socket = io({
+        transports: ["websocket"],
+        upgrade: false,
+      });
       const audioEl = document.getElementById("audio");
 
       const liveDot = document.getElementById("liveDot");
@@ -271,11 +327,15 @@
       const msgInput = document.getElementById("msgInput");
       const sendBtn = document.getElementById("sendBtn");
 
-      const pcConfig = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] };
+      const pcConfig = {
+        iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
+      };
 
       let pc = null;
 
-      function setStatus(msg) { statusEl.textContent = msg; }
+      function setStatus(msg) {
+        statusEl.textContent = msg;
+      }
       function setLive(isLive, text) {
         liveDot.classList.toggle("live", !!isLive);
         liveText.textContent = text || (isLive ? "En vivo" : "Offline");
@@ -310,7 +370,11 @@
 
         pc.onicecandidate = (e) => {
           if (e.candidate) {
-            socket.emit("webrtc-ice", { to: from, candidate: e.candidate, room });
+            socket.emit("webrtc-ice", {
+              to: from,
+              candidate: e.candidate,
+              room,
+            });
           }
         };
 
@@ -318,12 +382,18 @@
         const answer = await pc.createAnswer();
         await pc.setLocalDescription(answer);
 
-        socket.emit("webrtc-answer", { to: from, sdp: pc.localDescription, room });
+        socket.emit("webrtc-answer", {
+          to: from,
+          sdp: pc.localDescription,
+          room,
+        });
       });
 
       socket.on("webrtc-ice", async ({ candidate }) => {
         if (!pc) return;
-        try { await pc.addIceCandidate(candidate); } catch {}
+        try {
+          await pc.addIceCandidate(candidate);
+        } catch {}
       });
 
       socket.on("peer-left", () => {
@@ -357,7 +427,10 @@
 
       function hideKeyboard() {
         // quita foco para esconder teclado (móvil)
-        if (document.activeElement && typeof document.activeElement.blur === "function") {
+        if (
+          document.activeElement &&
+          typeof document.activeElement.blur === "function"
+        ) {
           document.activeElement.blur();
         }
         msgInput.blur();
@@ -389,7 +462,10 @@
         addMessage({ user: user || "Usuario", text: text || "" });
       });
 
-      addMessage({ user: "Sistema", text: "Conectado al chat. Escribe algo 👇" });
+      addMessage({
+        user: "Sistema",
+        text: "Conectado al chat. Escribe algo 👇",
+      });
     </script>
   </body>
 </html>
